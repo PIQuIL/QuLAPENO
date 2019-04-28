@@ -1,14 +1,16 @@
-########## ICTP-SAIFR Minicourse on Machine Learning for Many-Body Physics ##########
-### Roger Melko, Juan Carrasquilla and Lauren Hayward Sierens
-### Tutorial 1: Print observables as a function of temperature for the Ising model
+########## Machine Learning for Quantum Matter and Technology  ######################
+### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko 
+### with code from Lauren Hayward Sierens
+### Tutorial 1: Monte Carlo for the Ising model
 #####################################################################################
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 ### Input parameters (these should be the same as in ising_mc.py): ###
-T_list = np.linspace(5.0,0.5,19) #temperature list
-L = 4                            #linear size of the lattice
+T_list = np.linspace(5.0,2.0,7) #temperature list
+#T_list = [2.0]
+L = 10                            #linear size of the lattice
 N_spins = L**2                   #total number of spins
 J = 1                            #coupling parameter
 
@@ -66,5 +68,7 @@ plt.xlabel('T')
 plt.ylabel('$\chi/N$')
 
 plt.suptitle('%d x %d Ising model' %(L,L))
+
+#plt.tight_layout()
 
 plt.show()

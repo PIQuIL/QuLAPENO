@@ -11,8 +11,8 @@ import random
 
 ### Input parameters: ###
 T_list = np.linspace(5.0,2.0,7) #temperature list
-T_list = [2.0]
-L = 20                            #linear size of the lattice
+#T_list = [2.0]
+L = 10                            #linear size of the lattice
 N_spins = L**2                   #total number of spins
 J = 1                            #coupling parameter
 
@@ -32,7 +32,7 @@ file_Xtest  = open('Xtest.txt', 'w')
 file_ytest  = open('ytest.txt', 'w')
 
 ### Parameters needed to show animation of spin configurations: ###
-animate = False
+animate = False 
 bw_cmap = colors.ListedColormap(['black', 'white'])
 
 ### Initially, the spins are in a random state (a high-T phase): ###
