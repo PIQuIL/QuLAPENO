@@ -1,18 +1,19 @@
 ########## Machine Learning for Quantum Matter and Technology  ######################
-### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko 
-### with code from Lauren Hayward Sierens
+### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko
+### with code from Lauren Hayward Sierens/PSI
 ### Tutorial 1: Monte Carlo for the Ising model
 #####################################################################################
 
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import numpy as np
+import os
 import random
+import time
 
 ### Input parameters: ###
-T_list = np.linspace(5.0,2.0,7) #temperature list
-#T_list = [2.0]
-L = 10                            #linear size of the lattice
+T_list = np.linspace(5.0,0.5,10) #temperature list
+L = 4                            #linear size of the lattice
 N_spins = L**2                   #total number of spins
 J = 1                            #coupling parameter
 
@@ -21,19 +22,16 @@ Tc = 2.0/np.log(1.0 + np.sqrt(2))*J
 
 ### Monte Carlo parameters: ###
 n_eqSweeps = 0   #number of equilibration sweeps
-n_bins = 1000       #total number of measurement bins
-n_sweepsPerBin=1  #number of sweeps performed in one bin
-
-### Files to write training and testing spin configurations (X) and phases (y): ###
-train_frac   = 2.0/7.0 #fraction of data to be used for training
-file_Xtrain = open('Xtrain.txt', 'w')
-file_ytrain = open('ytrain.txt', 'w')
-file_Xtest  = open('Xtest.txt', 'w')
-file_ytest  = open('ytest.txt', 'w')
+n_measSweeps = 20  #number of measurement sweeps
 
 ### Parameters needed to show animation of spin configurations: ###
-animate = False 
+animate = True
 bw_cmap = colors.ListedColormap(['black', 'white'])
+
+### Create a directory where measured observables will be stored: ###
+results_dir = 'Data'
+if not(os.path.isdir(results_dir)):
+  os.mkdir(results_dir)
 
 ### Initially, the spins are in a random state (a high-T phase): ###
 spins = np.zeros(N_spins,dtype=np.int)
@@ -52,16 +50,12 @@ for i in range(N_spins):
   neighbours[i,1]=i+L
   if i >= (N_spins-L):
     neighbours[i,1]=i+L-N_spins
-  
-  #neighbour to the left:
-  neighbours[i,2]=i-1
-  if i%L==0:
-    neighbours[i,2]=i-1+L
-  
-  #downwards neighbour:
-  neighbours[i,3]=i-L
-  if i <= (L-1):
-    neighbours[i,3]=i-L+N_spins
+
+  # *********************************************************************** #
+  # **********          1a) FILL IN CODE TO CALCULATE           *********** #
+  # **********  THE NEIGHBOUR TO THE LEFT (IN neighbours[i,2])  *********** #
+  # ********** AND THE DOWNWARDS NEIGHBOUR (IN neighbours[i,3]) *********** #
+  # *********************************************************************** #
 #end of for loop
 
 ### Function to calculate the total energy ###
@@ -79,15 +73,22 @@ def getMag():
 
 ### Function to perform one Monte Carlo sweep ###
 def sweep():
-  #do one sweep (N_spins local updates):
+  #do one sweep (N_spins single-spin flips):
   for i in range(N_spins):
     #randomly choose which spin to consider flipping:
     site = random.randint(0,N_spins-1)
-      
-    deltaE = 0
-    #calculate the change in energy of the proposed move by considering only the nearest neighbours:
-    for j in range(4):
-      deltaE += 2*J*spins[site]*spins[neighbours[site,j]]
+    
+    #calculate the change in energy for the proposed move:
+    E_init = getEnergy()
+    spins[site] = -spins[site] #flip the spin before calculating E_final
+    E_final = getEnergy()
+    spins[site] = -spins[site] #flip the spin back since we might not accept the move
+    deltaE = E_final - E_init
+    # *********************************************************************** #
+    # ************       1c) REPLACE THE ABOVE FIVE LINES.        *********** #
+    # ************ FILL IN CODE TO CALCULATE THE CHANGE IN ENERGY *********** #
+    # ************     USING ONLY THE FOUR NEAREST NEIGHBOURS     *********** #
+    # *********************************************************************** #
   
     if (deltaE <= 0) or (random.random() < np.exp(-deltaE/T)):
       #flip the spin:
@@ -95,45 +96,15 @@ def sweep():
   #end loop over i
 #end of sweep() function
 
-### Function to write the training/testing data to file: ###
-def writeConfigs(num,T):
-  #determine whether the current configuration will be used for training or testing:
-  if num < (train_frac*n_bins):
-    file_X = file_Xtrain
-    file_y = file_ytrain
-  else:
-    file_X = file_Xtest
-    file_y = file_ytest
-
-  #multiply the configuration by +1 or -1 to ensure we generate configurations with both positive and negative magnetization:
-  flip = 2*random.randint(0,1) - 1
-    
-  #loop to write each spin to a single line of the X data file:
-  for i in range(N_spins):
-    currSpin = flip*spins[i]
-      
-    #replace -1 with 0 (to be consistent with the desired format):
-    if currSpin == -1:
-      currSpin = 0
-    
-    file_X.write('%d  ' %(currSpin) )
-  #end loop over i
-  file_X.write('\n')
-  
-  y = 0
-  if T>Tc:
-    y = 1
-  file_y.write('%d \n' %y)
-#end of writeConfigs(num,T) function
-
 #################################################################################
 ########## Loop over all temperatures and perform Monte Carlo updates: ##########
 #################################################################################
+t1 = time.clock() #for timing
 for T in T_list:
   print('\nT = %f' %T)
   
   #open a file where observables will be recorded:
-  fileName         = 'ising2d_L%d_T%.4f.txt' %(L,T)
+  fileName         = '%s/ising2d_L%d_T%.4f.txt' %(results_dir,L,T)
   file_observables = open(fileName, 'w')
   
   #equilibration sweeps:
@@ -141,32 +112,30 @@ for T in T_list:
     sweep()
 
   #start doing measurements:
-  for i in range(n_bins):
-    for j in range(n_sweepsPerBin):
-      sweep()
-    #end loop over j
+  for i in range(n_measSweeps):
+    sweep()
 
     #Write the observables to file:
     energy = getEnergy()
     mag    = getMag()
     file_observables.write('%d \t %.8f \t %.8f \n' %(i, energy, mag))
 
-    #write the X, y data to file:
-    writeConfigs(i,T)
-
     if animate:
       #Display the current spin configuration:
       plt.clf()
-      plt.imshow( spins.reshape((L,L)), cmap=bw_cmap, norm=colors.BoundaryNorm([-1,0,1], bw_cmap.N) )
+      plt.imshow( spins.reshape((L,L)), cmap=bw_cmap, norm=colors.BoundaryNorm([-1,0,1], bw_cmap.N), interpolation='nearest' )
       plt.xticks([])
       plt.yticks([])
       plt.title('%d x %d Ising model, T = %.3f' %(L,L,T))
       plt.pause(0.01)
     #end if
 
-    if (i+1)%50==0:
-      print ('  %d bins complete' %(i+1))
+    if (i+1)%1000==0:
+      print('  %d sweeps complete' %(i+1))
   #end loop over i
 
   file_observables.close()
 #end loop over temperature
+
+t2 = time.clock()
+print('Elapsed time: %f seconds' %(t2-t1))

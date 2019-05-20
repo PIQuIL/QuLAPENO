@@ -1,6 +1,6 @@
 ########## Machine Learning for Quantum Matter and Technology  ######################
-### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko 
-### with code from Lauren Hayward Sierens
+### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko
+### with code from Lauren Hayward Sierens/PSI
 ### Tutorial 1: Monte Carlo for the Ising model
 #####################################################################################
 
@@ -8,9 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ### Input parameters (these should be the same as in ising_mc.py): ###
-T_list = np.linspace(5.0,2.0,7) #temperature list
-#T_list = [2.0]
-L = 10                            #linear size of the lattice
+T_list = np.linspace(5.0,0.5,10) #temperature list
+L = 4                            #linear size of the lattice
 N_spins = L**2                   #total number of spins
 J = 1                            #coupling parameter
 
@@ -18,57 +17,56 @@ J = 1                            #coupling parameter
 Tc = 2.0/np.log(1.0 + np.sqrt(2))*J
 
 ### Observables to plot as a function of temperature: ###
-energy   = []
-mag      = []
-specHeat = []
-susc     = []
+energy   = np.zeros(len(T_list))
+mag      = np.zeros(len(T_list))
+specHeat = np.zeros(len(T_list))
+susc     = np.zeros(len(T_list))
 
 ### Loop to read in data for each temperature: ###
-for T in T_list:
-  file = open('ising2d_L%d_T%.4f.txt' %(L,T), 'r')
+for (iT,T) in enumerate(T_list):
+  file = open('Data/ising2d_L%d_T%.4f.txt' %(L,T), 'r')
   data = np.loadtxt( file )
 
   E   = data[:,1]
   M   = abs(data[:,2])
 
-  energy.append  ( np.mean(E)/(1.0*N_spins) )
-  mag.append     ( np.mean(M)/(1.0*N_spins) )
+  energy[iT] = np.mean(E)
+  mag[iT]    = np.mean(M)
   
   # *********************************************************************** #
-  # *** FILL IN THE ESTIMATORS FOR THE SPECIFIC HEAT AND SUSCEPTIBILITY *** #
+  # *********** 2b) FILL IN CODE TO CALCULATE THE SPECIFIC HEAT *********** #
+  # ***********               AND SUSCEPTIBILITY                *********** #
   # *********************************************************************** #
-  specHeat.append( 0 )
-  susc.append    ( 0 )
+  specHeat[iT] = 0
+  susc[iT]     = 0
 #end loop over T
 
 plt.figure(figsize=(8,6))
 
 plt.subplot(221)
 plt.axvline(x=Tc, color='k', linestyle='--')
-plt.plot(T_list, energy, 'o-')
+plt.plot(T_list, energy/(1.0*N_spins), 'o-')
 plt.xlabel('$T$')
 plt.ylabel('$<E>/N$')
 
 plt.subplot(222)
 plt.axvline(x=Tc, color='k', linestyle='--')
-plt.plot(T_list, mag, 'o-')
+plt.plot(T_list, mag/(1.0*N_spins), 'o-')
 plt.xlabel('$T$')
-plt.ylabel('$<M>/N$')
+plt.ylabel('$<|M|>/N$')
 
 plt.subplot(223)
 plt.axvline(x=Tc, color='k', linestyle='--')
-plt.plot(T_list, specHeat, 'o-')
+plt.plot(T_list, specHeat/(1.0*N_spins), 'o-')
 plt.xlabel('$T$')
-plt.ylabel('$C/N$')
+plt.ylabel('$C_V/N$')
 
 plt.subplot(224)
 plt.axvline(x=Tc, color='k', linestyle='--')
-plt.plot(T_list, susc, 'o-')
-plt.xlabel('T')
+plt.plot(T_list, susc/(1.0*N_spins), 'o-')
+plt.xlabel('$T$')
 plt.ylabel('$\chi/N$')
 
 plt.suptitle('%d x %d Ising model' %(L,L))
-
-#plt.tight_layout()
 
 plt.show()
