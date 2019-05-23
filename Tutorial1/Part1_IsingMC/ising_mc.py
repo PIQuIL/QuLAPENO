@@ -18,7 +18,7 @@ N_spins = L**2                   #total number of spins
 J = 1                            #coupling parameter
 
 ### Critical temperature: ###
-Tc = 2.0/np.log(1.0 + np.sqrt(2))*J
+Tc = 2.0/np.log(1.0 + np.sqrt(2))*J  #T/J ~ 2.269
 
 ### Monte Carlo parameters: ###
 n_eqSweeps = 0   #number of equilibration sweeps
@@ -90,7 +90,7 @@ def sweep():
     # ************     USING ONLY THE FOUR NEAREST NEIGHBOURS     *********** #
     # *********************************************************************** #
   
-    if (deltaE <= 0) or (random.random() < np.exp(-deltaE/T)):
+    if (deltaE <= 0) or (random.random() < np.exp(-deltaE/T)):  #Metropolis algorithm
       #flip the spin:
       spins[site] = -spins[site]
   #end loop over i

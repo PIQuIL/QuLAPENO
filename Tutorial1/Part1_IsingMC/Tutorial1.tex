@@ -236,22 +236,20 @@
 
 %\scalefont{1.35}
 
-\vspace{-3cm}
 
 \title{Tutorial 1: \\ Monte Carlo Simulation of the \\ Classical 2D Ising Model}
 
 \maketitle
 
-In this tutorial, we will study phase transitions within the classical two-dimensional Ising model, with Hamiltonian
+
+
+In this tutorial, we will study the phase transition in the classical two-dimensional Ising model, with Hamiltonian
 \begin{equation*}
-H = -J \sum_{\langle ij \rangle} \sigma_i \sigma_j - h \sum_i \sigma_i,
+H = -J \sum_{\langle ij \rangle} \sigma_i \sigma_j, 
 \end{equation*}
-where $\sigma_i = \pm 1$, $J$ is the coupling strength, $h$ is a magnetic field and $\sum_{\langle ij \rangle}$ denotes a sum over nearest neighbours.
-We will consider simulations on a lattice with periodic boundary conditions and set $h=0$.
-In the thermodynamic limit, the critical temperature is known to be 
-\begin{equation*}
-\frac{ T_\text{c} }{J} = \frac{2}{\log( 1 + \sqrt{2} )} \approx 2.269 .
-\end{equation*}
+where $\sigma_i = \pm 1$, $J$ is the coupling strength and $\sum_{\langle ij \rangle}$ denotes a sum over nearest neighbours.
+We will consider simulations on a square lattice with periodic boundary.
+In the thermodynamic limit, the critical temperature is known to be ${ T_\text{c} }/{J} \approx 2.269$.
 
 We will use and modify the two Python programs \texttt{ising{\textunderscore}mc.py} and \texttt{plot{\textunderscore}ising.py} throughout this tutorial 
 in order to implement Monte Carlo (MC) methods that estimate $T_\text{c}$ and compare with this known exact solution.
@@ -274,8 +272,8 @@ Modify the code such that it will also store spin \texttt{i}'s leftward neighbou
 \textbf{Hint:} Don't forget to consider the periodic boundary conditions.
 
 %%%%%%%%%%%%%% (b) %%%%%%%%%%%%%%
-\item Examine the \texttt{sweep()} function, which proposes a chain of \texttt{N{\textunderscore}spins} Monte Carlo updates.
-Compare with the algorithm given during the lectures and convince yourself that this code is implementing the single-spin-flip Metropolis algorithm.
+\item Examine the \texttt{sweep()} function, which proposes a number \texttt{N{\textunderscore}spins} single spin-flip Monte Carlo updates.
+Convince yourself that this code is implementing the single-spin-flip Metropolis algorithm.
 
 %%%%%%%%%%%%%% (c) %%%%%%%%%%%%%%
 \item Implement a more efficient way of calculating the energy difference \texttt{deltaE} within the \texttt{sweep()} function. 
