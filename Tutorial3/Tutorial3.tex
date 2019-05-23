@@ -1,0 +1,451 @@
+\documentclass[letterpaper]{scrartcl}	
+\usepackage[top=0.8in, bottom=1in, left=0.9in, right=0.9in]{geometry}
+
+\makeatletter
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\makeatother
+
+\usepackage{url}
+\usepackage{scalefnt}
+\usepackage{bm}
+\usepackage{cancel}
+
+%--------------------------------------------------------------
+% We need this package, part of the KOMA class, for the custom
+% headings.
+%--------------------------------------------------------------
+\usepackage{scrpage2}	
+		
+
+%--------------------------------------------------------------
+% One of many packages you can use if you want to include
+% graphics.
+%--------------------------------------------------------------
+\usepackage{graphicx}			
+
+%--------------------------------------------------------------
+% The AMS packages are useful but not required. They offer a
+% number of nice fonts, environments for formatting multiline
+% equations, etc.
+%--------------------------------------------------------------
+\usepackage{amsmath}			
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+%--------------------------------------------------------------
+% Basic way to set-up the page margins.
+%--------------------------------------------------------------
+%\addtolength{\oddsidemargin}{-.2in}
+%\addtolength{\evensidemargin}{-.2in}
+%\addtolength{\textwidth}{0.45in}
+%\addtolength{\topmargin}{-.175in}
+%\addtolength{\textheight}{0.75in}
+
+%--------------------------------------------------------------
+% Comment out the following to add indents and remove space between paragraphs.
+%--------------------------------------------------------------
+\usepackage{parskip}
+
+%--------------------------------------------------------------
+% This package is used to define custom colours.
+%--------------------------------------------------------------
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+%--------------------------------------------------------------
+% Package for adding in solutions:
+%--------------------------------------------------------------
+\usepackage[nosoln,regf,nolf]{optional}
+%\usepackage[soln,regf]{optional}
+
+%\newcommand{\soln}[1]{\opt{soln}{\\[4pt] \textcolor{JungleGreen}{\textbf{Solution:}} #1}}
+\newcommand{\soln}[1]{\opt{soln}{\textcolor{JungleGreen}{\usekomafont{descriptionlabel}{Solution:}} #1}}
+
+\newcommand{\hint}[1]{{\usekomafont{descriptionlabel}{Hint:}} #1}
+\newcommand{\note}[1]{{\usekomafont{descriptionlabel}{Note:}} #1}
+\newcommand{\reference}[1]{{\usekomafont{descriptionlabel}{Reference:}} #1}
+
+%--------------------------------------------------------------
+% A few colours for hyperlinks.
+%--------------------------------------------------------------
+\definecolor{plum}{rgb}{0.36078, 0.20784, 0.4}
+\definecolor{chameleon}{rgb}{0.30588, 0.60392, 0.023529}
+\definecolor{cornflower}{rgb}{0.12549, 0.29020, 0.52941}
+\definecolor{scarlet}{rgb}{0.8, 0, 0}
+\definecolor{brick}{rgb}{0.64314, 0, 0}
+
+%--------------------------------------------------------------
+% A command for typesetting and linking an email address.
+%--------------------------------------------------------------
+\newcommand{\email}[1]{\href{mailto:#1}{\tt \textcolor{cornflower}{#1}}}
+\newcommand{\web}[1]{\href{#1}{\tt \textcolor{cornflower}{#1}}}
+
+%--------------------------------------------------------------
+%  The following declaration includes the hyperref package and
+% assigns metadata. If you compile with pdflatex, this data
+% will be automatically included in the pdf file.
+%--------------------------------------------------------------
+%\usepackage[
+%	pdftitle={QFT Tutorial 1},%
+%	pdfauthor={PSI Tutors},%
+%	pdfsubject={QFT Tutorial 1},%
+%	pdfkeywords={PSI},
+%	colorlinks=true,
+%	linkcolor=cornflower,
+%	citecolor=scarlet,
+%	urlcolor=chameleon%
+%]{hyperref}
+
+%\setcounter{secnumdepth}{2}	% section number depth
+%\setcounter{tocdepth}{2}		% depth of TOC
+
+%--------------------------------------------------------------
+% Specify the font used in captions.
+%--------------------------------------------------------------
+\setkomafont{captionlabel}{\usekomafont{descriptionlabel}}
+
+%--------------------------------------------------------------
+% This is where we define the custom title. The image that is
+% placed on the left-hand-side of the title, PILogo.pdf in
+% this case, should be in the same directory as this file. Note
+% that you can always use hyperlinks for the Title, Semester,
+% and Author fields, below, in case you want to link to a seminar
+% web page or a lecturer's email address.
+%--------------------------------------------------------------
+
+\titlehead{%
+	\vspace*{-1cm}
+	\begin{minipage}[b]{4.0cm}
+	\includegraphics*[height=1.3cm]{Uniandes_logo.jpeg}%
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{12cm}
+	\begin{flushright}
+		\usekomafont{descriptionlabel}
+		\large Machine Learning for Quantum Matter and Technology \\
+		\normalsize \normalfont
+		J. Carrasquilla, E. Inack, G. Torlai, R. Melko, L. Hayward Sierens
+	\end{flushright}
+	\end{minipage}
+	\\[-3mm]
+	\hrule
+	\vspace{-3mm}
+}
+% -----------
+
+%--------------------------------------------------------------
+% Other useful physic-related packages
+%--------------------------------------------------------------
+\usepackage{braket}  
+% Use \Bra{}, \Ket{} or \Braket{x | \psi} for Dirac notation
+
+%--------------------------------------------------------------
+% Nice numbering for question parts.
+%--------------------------------------------------------------
+\newcommand{\ba}{\begin{eqnarray}}
+\newcommand{\ea}{\end{eqnarray}}
+
+\newcommand{\ssk}{\smallskip}
+\newcommand{\msk}{\medskip}
+
+\newcommand{\nin}{\noindent}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+\newcommand{\beqs}{\begin{equation*}}
+\newcommand{\eeqs}{\end{equation*}}
+
+\renewcommand{\vec}[1]{{\mathbf{#1}}}
+\renewcommand{\labelenumi}{\alph{enumi})}
+\renewcommand{\labelenumiii}{\roman{enumiii})}
+
+%%%%%%%%%%%%%
+
+\def\be{\begin{eqnarray}}
+\def\ee{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+\newcommand\para{\paragraph{}}
+\newcommand{\ft}[2]{{\textstyle\frac{#1}{#2}}}
+\newcommand{\eqn}[1]{(\ref{#1})}
+\newcommand{\pl}[1]{\frac{\partial {\cal L}}{\partial{#1}}}
+\newcommand{\ppp}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\ph}[1]{\frac{\partial {\cal H}}{\partial{#1}}}
+\newcommand{\leftp}[3]{\left.\ppp{#1}{#2}\right|_{#3}}
+%\newcommand{\Vec}[2]{\left(\begin{array}{c} {#1} \\ {#2}\end{array}\right)}
+\newcommand\vx{\vec{x}}
+\newcommand\vy{\vec{y}}
+\newcommand\vp{\vec{p}}
+\newcommand\vq{\vec{q}}
+\newcommand\vk{\vec{k}}
+\newcommand\avp{a^{\ }_{\vp}}
+\newcommand\advp{a^\dagger_{\vp}}
+\newcommand\ad{a^\dagger}
+
+\newcommand\balpha{\mbox{\boldmath $\alpha$}}
+\newcommand\bbeta{\mbox{\boldmath $\beta$}}
+\newcommand\bgamma{\mbox{\boldmath $\gamma$}}
+\newcommand\bomega{\mbox{\boldmath $\omega$}}
+\newcommand\blambda{\mbox{\boldmath $\lambda$}}
+\newcommand\bmu{\mbox{\boldmath $\mu$}}
+\newcommand\bphi{\mbox{\boldmath $\phi$}}
+\newcommand\bzeta{\mbox{\boldmath $\zeta$}}
+\newcommand\bsigma{\mbox{\boldmath $\sigma$}}
+\newcommand\bepsilon{\mbox{\boldmath $\epsilon$}}
+\newcommand\btau{\mbox{\boldmath $\tau$}}
+\newcommand\beeta{\mbox{\boldmath $\eta$}}
+\newcommand\btheta{\mbox{\boldmath $\theta$}}
+
+\def\norm#1{:\!\!#1\!\!:}
+
+\def\part{\partial}
+
+\def\dbox{\hbox{{$\sqcup$}\llap{$\sqcap$}}}
+
+\def\sla#1{\hbox{{$#1$}\llap{$/$}}}
+\def\Dslash{\,\,{\raise.15ex\hbox{/}\mkern-13mu D}}
+\def\Dbarslash{\,\,{\raise.15ex\hbox{/}\mkern-12mu {\bar D}}}
+\def\delslash{\,\,{\raise.15ex\hbox{/}\mkern-10mu \partial}}
+\def\delbarslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu {\bar\partial}}}
+\def\pslash{\,\,{\raise.15ex\hbox{/}\mkern-11mu p}}
+\def\qslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu q}}
+\def\kslash{\,\,{\raise.15ex\hbox{/}\mkern-11mu k}}
+\def\eslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu \epsilon}}
+\def\calDslash{\,\,{\rais.15ex\hbox{/}\mkern-12mu {\cal D}}}
+\newcommand{\slsh}[1]{\,\,{\raise.15ex\hbox{/}\mkern-12mu {#1}}}
+
+
+\newcommand\Bprime{B${}^\prime$}
+%\newcommand{\sign}{{\rm sign}}
+
+\newcommand\bx{{\bf x}}
+\newcommand\br{{\bf r}}
+\newcommand\bF{{\bf F}}
+\newcommand\bp{{\bf p}}
+\newcommand\bL{{\bf L}}
+\newcommand\bR{{\bf R}}
+\newcommand\bP{{\bf P}}
+\newcommand\bE{{\bf E}}
+\newcommand\bB{{\bf B}}
+\newcommand\bA{{\bf A}}
+\newcommand\bee{{\bf e}}
+\newcommand\bte{\tilde{\bf e}}
+\def\ket#1{\left| #1 \right\rangle}
+\def\bra#1{\left\langle #1 \right|}
+\def\vev#1{\left\langle #1 \right\rangle}
+
+\newcommand\lmn[2]{\Lambda^{#1}_{\ #2}}
+\newcommand\mup[2]{\eta^{#1 #2}}
+\newcommand\mdown[2]{\eta_{#1 #2}}
+\newcommand\deld[2]{\delta^{#1}_{#2}}
+\newcommand\df{\Delta_F}
+\newcommand\cL{{\cal L}}
+%\def\theequation{\thesection.\arabic{equation}
+
+\newcounter{solneqn}
+%\newcommand{\mytag}{\refstepcounter{equation}\tag{\roman{equationn}}}
+\newcommand{\mytag}{\refstepcounter{solneqn}\tag{S.\arabic{solneqn}}}
+
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+%%%%%%%%%
+
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\sign}{sign}
+
+%\renewcommand{\ttdefault}{pcr}
+
+\usepackage{enumitem}
+
+\begin{document}
+
+%\scalefont{1.35}
+
+\vspace{-3cm}
+
+\opt{nosoln}{\title{Tutorial 3: \\Identifying phase transitions using \\principal component analysis \vspace*{-6mm}}}
+\opt{soln}{\title{Tutorial 3 \textcolor{JungleGreen}{Solutions}: \\Identifying phase transitions using \\principal component analysis \vspace*{-6mm}}}
+
+\date{May 29, 2019}
+
+\maketitle
+
+The objective of this tutorial is to use the dimensional reduction technique known as principal component analysis (PCA) to identify phases without explicitly training with phase labels.
+You will reproduce the results in Figures 1 and 2 of Reference~\cite{wang}.
+
+The goal of dimensional reduction is to generate a lower-dimensional representation $\mathcal{D}' = \{ \mathbf{x}' \}$ 
+of a high-dimensional dataset $\mathcal{D} = \{ \mathbf{x} \}$, where $\mathbf{x}' \in \mathbb{R}^{N'}$, $\mathbf{x} \in \mathbb{R}^{N}$ and $N' < N$.
+The lower-dimensional dataset should still encode the important features of the original higher-dimensional data.
+The PCA method attempts to accomplish this goal by applying a linear transformation.
+In this tutorial we will apply PCA to $N$-dimensional spin configurations of the two-dimensional Ising model.
+%In Homework 2, you will consider the \emph{non-linear} $t$-distributed stochastic neighbour embedding (t-SNE) method for visualizing the phases of such models.
+
+Our data is stored in an $M \times N$ matrix $X$, where each of the $M$ rows stores a spin configuration for a system with $N$ spins.
+For the two-dimensional Ising model we have $N=L^2$. %while for the two-dimensional Ising lattice gauge theory we have $N=2L^2$.
+
+PCA can be performed on a matrix $X^c$ where each column has mean 0.
+One can calculate $X^{c}$ from $X$ as
+\begin{equation}
+X^c_{ij} = X_{ij} - \frac{1}{M} \sum_{k=1}^M X_{kj}.
+\end{equation} 
+
+The principal components $x'_1, x'_2, \ldots$ are then stored in the columns of an $M \times N$ matrix 
+\begin{equation}
+X' = X_c P,
+\end{equation} 
+where $P$ is an $N \times N$ matrix. 
+$P$ is determined by solving the eigenvalue problem
+\begin{equation}
+\frac{1}{M-1}X_c^T X_c = P^T D P,
+\end{equation}
+where $D$ is a diagonal matrix with non-negative entries $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_N \geq 0$.
+
+Another important definition is the so-called \emph{explained variance ratio} $r_\ell$, which measures how much of the variance in the dataset $X$ 
+can be explained by the principal component $x'_\ell$. 
+This ratio is defined in terms of the eigenvalues $\lambda_\ell$ as
+\begin{equation}
+r_\ell = \frac{\lambda_\ell}{ \sum_{i=1}^N \lambda_i}.
+\end{equation}
+
+For this tutorial, you have been given a dataset containing rows of spin configurations 
+$[s_1, s_2, \ldots, s_{N}]$ 
+for the two-dimensional Ising model on various sized lattices.
+Each spin `up' is stored as 1 and each spin `down' is stored as -1.
+
+You have been given data for $L=20$, 40 and 80. 
+Each spin configuration file contains 100 spin configurations at each of the 20 temperatures $T/J = 1.0, 1.1, 1.2, \ldots, 2.9$ such that $M=2000$ for each lattice size.
+For each $L$, there is a corresponding file storing the temperature at which each configuration was generated 
+(using Monte Carlo simulation).
+The temperature data will not be used to determine the principal components and will only be used for data visualization purposes.
+If you wish, you could generate this data yourself using the code from Tutorial 1.
+
+%For the Ising gauge theory, you have again been given data for $L=20$, 40 and 80.
+%Each spin configuration file contains 500 spin configurations corresponding to $T=0$ (where the system becomes topologically ordered) 
+%and 500 spin configurations corresponding to $T=\infty$.
+%For each lattice size, there is a corresponding file of labels indicating whether a configuration corresponds to $T=0$ (label 0) 
+%or $T=\infty$ (label 1).
+%Similar to the temperatures in the Ising model, these labels will only be used for visualization purposes.
+%You could generate similar data files yourself using code from Tutorial 2.
+
+%\opt{soln}{\newpage}
+\begin{enumerate}[label=\alph*)]
+
+%%%%%%%%%%%%%% (a) %%%%%%%%%%%%%%
+\item Write code that reads in the spin configurations for the Ising model for a given lattice size and determines the principal components $x'_1, x'_2, \ldots$.
+Make a scatter plot of $x'_1$ versus $x'_2$ for each of the lattice sizes.
+What do you notice about the behaviour of the resulting two-dimensional cluster(s) as $L$ increases?
+
+\hint{You may find it useful to use the function
+\begin{center}
+\texttt{(lamb, P) = np.linalg.eig(np.dot(Xc.T, Xc))}
+\end{center}
+When \texttt{np.dot(Xc.T, Xc)} is an $N \times N$ matrix, this function will return the $N$ eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_N$ in the array \texttt{lamb}.
+The eigenvector corresponding to \texttt{lamb[i]} will be returned in \texttt{P[:,i]}.
+}
+
+%%% SOLUTION %%%
+\soln{See \texttt{tutorial4{\textunderscore}pca{\textunderscore}solution.py} for the code needed to generate the plots.
+You should get results similar to the following:
+\begin{center}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_partA_L20.pdf}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_partA_L40.pdf}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_partA_L80.pdf}
+\end{center}
+You can see that there are three clusters for each $L$, which become more distinct as $L$ increases.
+}
+
+%%%%%%%%%%%%%% (b) %%%%%%%%%%%%%%
+\opt{soln}{\newpage}
+\item Label the points in your plot such that they are coloured according to their temperature and compare with Figure 2 of Reference~\cite{wang}.
+What does each cluster correspond to in terms of the phases of the two-dimensional Ising model?
+
+%%% SOLUTION %%%
+\soln{See \texttt{tutorial4{\textunderscore}pca{\textunderscore}solution.py} for the code needed to generate the plots.
+You should get results similar to the following:
+\begin{center}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_L20.pdf}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_L40.pdf}
+\includegraphics[width=5cm]{xPrime1_xPrime2_Ising_L80.pdf}
+\end{center}
+The red cluster in the middle corresponds to the high-temperature (paramagnetic) phase. 
+The white/blue clusters to the right and left of of the red cluster correspond to the low-temperature (ferromagnetic) phase
+(one for the spin-up symmetry-broken state and one for the spin-down state).
+}
+
+%%%%%%%%%%%%%% (c) %%%%%%%%%%%%%%
+\item Consider now the explained variance ratios $r_\ell$. 
+Plot the largest 10 explained variance ratios for each lattice size and compare with Figure 1 of Reference~\cite{wang}.
+How many principal components are needed to explain how the Ising spin configurations vary as a function of temperature?
+
+%%% SOLUTION %%%
+\soln{See \texttt{tutorial4{\textunderscore}pca{\textunderscore}solution.py} for the code needed to generate the plot below.
+You should get results similar to the following:
+\begin{center}
+\includegraphics[width=8cm]{ratios_Ising.pdf}
+\end{center}
+Note the logarithmic scale on the $y$-axis. 
+The plot shows that, for each $L$, the explained variance ratio corresponding to the first principal component is more than an order of
+magnitude larger than for the other components.
+We can conclude that the first principle component explains the vast majority of the variations in the spin configurations
+as a function of temperature.
+}
+
+
+%%%%%%%%%%%%%% (d) %%%%%%%%%%%%%%
+\opt{soln}{\newpage}
+\item Let $p_\ell$ be the $i^{\text{th}}$ column of the matrix $P$ such that $x'_\ell = X p_\ell$.
+Plot the elements of $p_1$. 
+What does your plot tell you about how $x'_1$ is computed from the data $X$? 
+Relate your plot the to the magnetization order parameter for the Ising model, which is given by $\frac{1}{N} \sum_i s_i$.
+
+%%% SOLUTION %%%
+\soln{See \texttt{tutorial4{\textunderscore}pca{\textunderscore}solution.py} for the code needed to generate the plots.
+You should get results similar to the following:
+\begin{center}
+\includegraphics[width=5cm]{p1_Ising_L20.pdf}
+\includegraphics[width=5cm]{p1_Ising_L40.pdf}
+\includegraphics[width=5cm]{p1_Ising_L80.pdf}
+\end{center}
+
+For each value of $L$, the fluctuations in the components of $p_1$ are very small (i.e. the distribution of the components of $p_1$ is nearly flat).
+As a result, $y_1 = X p_1$ will (approximately) sum the spins in each configuration such that $y_1 \appropto m$, 
+where $m = \frac{1}{N} \sum_i s_i$ is the magnetization of a given configuration.
+}
+
+%%%%%%%%%%%%%% (e) %%%%%%%%%%%%%%
+%\item Repeat parts (a)--(c) for the Ising gauge theory and label the points in the $x'_1$ versus $x'_2$ plot according to the label ($T=0$ or $T=\infty$). 
+%You should find that plots of $x'_1$ versus $x'_2$ form one large cluster with no clear separation of the $T=0$ data from the $T=\infty$ data.
+%Consider how the explained variance ratios behave as a function of $\ell$. 
+%What do these explained variance ratios indicate about the order parameter for the Ising gauge theory?
+
+%%% SOLUTION %%%
+%\soln{See \texttt{tutorial4{\textunderscore}pca{\textunderscore}solution.py} for the code needed to generate the plots.
+%Plots of $y_1$ versus $y_2$ should look similar to the following, with no clear separation of the $T=0$ data (blue) from the $T=\infty$ data (red).
+%\begin{center}
+%\includegraphics[width=5cm]{xPrime1_xPrime2_gaugeTheory_L20.pdf}
+%\includegraphics[width=5cm]{xPrime1_xPrime2_gaugeTheory_L40.pdf}
+%\includegraphics[width=5cm]{xPrime1_xPrime2_gaugeTheory_L80.pdf}
+%\end{center}
+
+%\opt{soln}{\newpage}
+%The explained variance ratios should behave similar to the following plot:
+%\begin{center}
+%\includegraphics[width=8cm]{ratios_gaugeTheory.pdf}
+%\end{center}
+%We see that many principle components are needed in this case in order to explain how the spin configurations vary when $T$ changes from 0 to $\infty$.
+%We know that the order parameter is a highly non-linear function of our spins for the Ising gauge theory, 
+%so it makes sense that the linear PCA transformation is not useful for finding a low-dimensional representation of this model's spin configurations.
+%}
+
+\end{enumerate}
+
+\begin{thebibliography}{}
+
+\bibitem{wang} 
+L. Wang, Phys. Rev. B \textbf{94}, 195105 (2016), {\small\url{https://arxiv.org/abs/1606.00318}}.
+
+\end{thebibliography}
+
+\end{document}
