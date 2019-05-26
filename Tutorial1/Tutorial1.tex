@@ -1,4 +1,5 @@
 \documentclass[letterpaper]{scrartcl}	
+\usepackage[top=0.88in, bottom=1in, left=1in, right=1in]{geometry}
 
 \makeatletter
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
@@ -33,11 +34,11 @@
 %--------------------------------------------------------------
 % Basic way to set-up the page margins.
 %--------------------------------------------------------------
-\addtolength{\oddsidemargin}{-.2in}
-\addtolength{\evensidemargin}{-.2in}
-\addtolength{\textwidth}{0.45in}
-\addtolength{\topmargin}{-.175in}
-\addtolength{\textheight}{0.75in}
+%\addtolength{\oddsidemargin}{-.2in}
+%\addtolength{\evensidemargin}{-.2in}
+%\addtolength{\textwidth}{0.45in}
+%\addtolength{\topmargin}{-.175in}
+%\addtolength{\textheight}{0.75in}
 
 %--------------------------------------------------------------
 % Comment out the following to add indents and remove space between paragraphs.
@@ -100,7 +101,7 @@
 \titlehead{%
 	\vspace*{-1cm}
 	\begin{minipage}[b]{4.0cm}
-	%\includegraphics*[height=1.3cm]{PSIletterhead.eps}%
+	\includegraphics*[height=1.3cm]{Uniandes_logo.jpeg}%
 	\end{minipage}
 	\hfill
 	\begin{minipage}[b]{12cm}
@@ -236,11 +237,12 @@
 
 %\scalefont{1.35}
 
+\title{Tutorial 1: \\ Monte Carlo Simulation of the 2D Ising Model}
 
-\title{Tutorial 1: \\ Monte Carlo Simulation of the \\ Classical 2D Ising Model}
+\date{May 27, 2019}
+
 
 \maketitle
-
 
 
 In this tutorial, we will study the phase transition in the classical two-dimensional Ising model, with Hamiltonian
