@@ -248,7 +248,7 @@ In this tutorial, we will study the phase transition in the classical two-dimens
 H = -J \sum_{\langle ij \rangle} \sigma_i \sigma_j, 
 \end{equation*}
 where $\sigma_i = \pm 1$, $J$ is the coupling strength and $\sum_{\langle ij \rangle}$ denotes a sum over nearest neighbours.
-We will consider simulations on a square lattice with periodic boundary.
+We will consider simulations on a square lattice with periodic boundaries.
 In the thermodynamic limit, the critical temperature is known to be ${ T_\text{c} }/{J} \approx 2.269$.
 
 We will use and modify the two Python programs \texttt{ising{\textunderscore}mc.py} and \texttt{plot{\textunderscore}ising.py} throughout this tutorial 
@@ -281,16 +281,16 @@ The given implementation calculates this energy difference by using the \texttt{
 which involves iterating a loop \texttt{N{\textunderscore}spins} times.
 However, you should be able to calculate \texttt{deltaE} by summing only four terms.
 
-\textbf{Hint:} To appreciate the difference in time required for these two different implementations, 
-set \texttt{animate = False} and increase the linear size \texttt{L} when you run the two versions of the code.
+%\textbf{Hint:} To appreciate the difference in time required for these two different implementations, 
+%set \texttt{animate = False} and increase the linear size \texttt{L} when you run the two versions of the code.
 
-%%%%%%%%%%%%%% (d) %%%%%%%%%%%%%%
-\item Run the code for various values of \texttt{L}, \texttt{J}, \texttt{n{\textunderscore}eqSweeps} and \texttt{n{\textunderscore}measSweeps} 
-and explain how each of these parameters affects the resulting animated samples.
+%%%%%%%%%%%%%%% (d) %%%%%%%%%%%%%%
+%\item Run the code for various values of \texttt{L}, \texttt{J}, \texttt{n{\textunderscore}eqSweeps} and \texttt{n{\textunderscore}measSweeps} 
+%and explain how each of these parameters affects the resulting animated samples.
 
 %%%%%%%%%%%%%% (e) %%%%%%%%%%%%%%
-\item Run your code with \texttt{L=4}, \texttt{J=1}, 
-\texttt{T{\textunderscore}list = np.linspace(5.0,0.5,10)}, \texttt{n{\textunderscore}eqSweeps=1000} and \texttt{n{\textunderscore}measSweeps=10000}.
+\item Run your code with % \texttt{L=4}, \texttt{J=1}, \texttt{T{\textunderscore}list = np.linspace(5.0,0.5,10)}, 
+\texttt{n{\textunderscore}eqSweeps=1000} and \texttt{n{\textunderscore}measSweeps=10000}.
 The code will generate files in a directory called \texttt{Data} that will store the energy and magnetization 
 corresponding to each of your sampled system configurations.
 (In Question 2, we will analyze and plot the resulting data.)
@@ -324,10 +324,10 @@ On a finite lattice, these quantities do not diverge but will acquire peaks near
 %%%%%%%%%%%%%% (a) %%%%%%%%%%%%%%
 \item Use the code \texttt{plot{\textunderscore}ising.py} to read in the Monte Carlo data from Question 1e 
 and plot the estimators for $\langle E \rangle/N$ and $\langle | M | \rangle/N$.
-Explain the values you find for these estimators in the limit of small $T$.
+Consider the values you find for these estimators in the limit of small $T$; do they match your theoretical expectations?
 
 %%%%%%%%%%%%%% (b) %%%%%%%%%%%%%%
-\item Modify \texttt{plot{\textunderscore}ising.py} to additionally calculate $C_V$ and $\chi$. 
+\item Modify \texttt{plot{\textunderscore}ising.py} to calculate $C_V$ and $\chi$. 
 Plot $C_V/N$ and $\chi/N$ versus $T$ and verify that there are peaks in these quantities near $T_\text{c}$.
 
 %%%%%%%%%%%%%% (c) %%%%%%%%%%%%%%
