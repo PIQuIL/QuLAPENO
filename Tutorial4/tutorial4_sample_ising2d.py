@@ -1,11 +1,13 @@
-############ PHYS 777: MACHINE LEARNING FOR MANY-BODY PHYSICS, TUTORIAL 5 ############
-### Dataset and code by Giacomo Torlai, Juan Carrasquilla and Lauren Hayward Sierens
+########## Machine Learning for Quantum Matter and Technology  ######################
+### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko
+### with dataset and code by Giacomo Torlai, Juan Carrasquilla and Lauren Hayward Sierens
 ###
-### This code will sample from a Restricted Boltzmann Machine (RBM) and interpret the
+### Tutorial 4: This code will sample from a Restricted Boltzmann Machine (RBM) and interpret the
 ### resulting samples as spin configurations corresponding to the two-dimensional
 ### Ising model. It will then save to file each sample's energy, magnetization
 ### specific heat and susceptibility.
-######################################################################################
+#####################################################################################
+
 
 from __future__ import print_function
 import tensorflow as tf

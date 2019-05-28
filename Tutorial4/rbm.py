@@ -1,8 +1,10 @@
-############ PHYS 777: MACHINE LEARNING FOR MANY-BODY PHYSICS, TUTORIAL 5 ############
-### Dataset and code by Giacomo Torlai, Juan Carrasquilla and Lauren Hayward Sierens
+########## Machine Learning for Quantum Matter and Technology  ######################
+### Juan Carrasquilla, Estelle Inack, Giacomo Torlai, Roger Melko
+### with dataset and code by Giacomo Torlai, Juan Carrasquilla and Lauren Hayward Sierens
 ###
-### This code defines a Restricted Boltzmann Machine (RBM) object.
-######################################################################################
+### Tutorial 4: This code defines a Restricted Boltzmann Machine (RBM) object.
+#####################################################################################
+
 
 import tensorflow as tf
 import itertools as it
