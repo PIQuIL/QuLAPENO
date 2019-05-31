@@ -1,0 +1,336 @@
+\documentclass[letterpaper]{scrartcl}	
+\usepackage[top=0.8in, bottom=1in, left=0.9in, right=0.9in]{geometry}
+
+\makeatletter
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\makeatother
+
+\usepackage{url}
+\usepackage{scalefnt}
+\usepackage{bm}
+\usepackage{cancel}
+
+%--------------------------------------------------------------
+% We need this package, part of the KOMA class, for the custom
+% headings.
+%--------------------------------------------------------------
+\usepackage{scrpage2}	
+		
+
+%--------------------------------------------------------------
+% One of many packages you can use if you want to include
+% graphics.
+%--------------------------------------------------------------
+\usepackage{graphicx}			
+
+%--------------------------------------------------------------
+% The AMS packages are useful but not required. They offer a
+% number of nice fonts, environments for formatting multiline
+% equations, etc.
+%--------------------------------------------------------------
+\usepackage{amsmath}			
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+%--------------------------------------------------------------
+% Basic way to set-up the page margins.
+%--------------------------------------------------------------
+%\addtolength{\oddsidemargin}{-.2in}
+%\addtolength{\evensidemargin}{-.2in}
+%\addtolength{\textwidth}{0.45in}
+%\addtolength{\topmargin}{-.175in}
+%\addtolength{\textheight}{0.75in}
+
+%--------------------------------------------------------------
+% Comment out the following to add indents and remove space between paragraphs.
+%--------------------------------------------------------------
+\usepackage{parskip}
+
+%--------------------------------------------------------------
+% This package is used to define custom colours.
+%--------------------------------------------------------------
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+%--------------------------------------------------------------
+% Package for adding in solutions:
+%--------------------------------------------------------------
+\usepackage[nosoln,regf,nolf]{optional}
+%\usepackage[soln,regf]{optional}
+
+%\newcommand{\soln}[1]{\opt{soln}{\\[4pt] \textcolor{JungleGreen}{\textbf{Solution:}} #1}}
+\newcommand{\soln}[1]{\opt{soln}{\textcolor{JungleGreen}{\usekomafont{descriptionlabel}{Solution:}} #1}}
+
+\newcommand{\hint}[1]{{\usekomafont{descriptionlabel}{Hint:}} #1}
+\newcommand{\note}[1]{{\usekomafont{descriptionlabel}{Note:}} #1}
+\newcommand{\reference}[1]{{\usekomafont{descriptionlabel}{Reference:}} #1}
+
+%--------------------------------------------------------------
+% A few colours for hyperlinks.
+%--------------------------------------------------------------
+\definecolor{plum}{rgb}{0.36078, 0.20784, 0.4}
+\definecolor{chameleon}{rgb}{0.30588, 0.60392, 0.023529}
+\definecolor{cornflower}{rgb}{0.12549, 0.29020, 0.52941}
+\definecolor{scarlet}{rgb}{0.8, 0, 0}
+\definecolor{brick}{rgb}{0.64314, 0, 0}
+
+%--------------------------------------------------------------
+% A command for typesetting and linking an email address.
+%--------------------------------------------------------------
+\newcommand{\email}[1]{\href{mailto:#1}{\tt \textcolor{cornflower}{#1}}}
+\newcommand{\web}[1]{\href{#1}{\tt \textcolor{cornflower}{#1}}}
+
+%--------------------------------------------------------------
+%  The following declaration includes the hyperref package and
+% assigns metadata. If you compile with pdflatex, this data
+% will be automatically included in the pdf file.
+%--------------------------------------------------------------
+%\usepackage[
+%	pdftitle={QFT Tutorial 1},%
+%	pdfauthor={PSI Tutors},%
+%	pdfsubject={QFT Tutorial 1},%
+%	pdfkeywords={PSI},
+%	colorlinks=true,
+%	linkcolor=cornflower,
+%	citecolor=scarlet,
+%	urlcolor=chameleon%
+%]{hyperref}
+
+%\setcounter{secnumdepth}{2}	% section number depth
+%\setcounter{tocdepth}{2}		% depth of TOC
+
+%--------------------------------------------------------------
+% Specify the font used in captions.
+%--------------------------------------------------------------
+\setkomafont{captionlabel}{\usekomafont{descriptionlabel}}
+
+%--------------------------------------------------------------
+% This is where we define the custom title. The image that is
+% placed on the left-hand-side of the title, PILogo.pdf in
+% this case, should be in the same directory as this file. Note
+% that you can always use hyperlinks for the Title, Semester,
+% and Author fields, below, in case you want to link to a seminar
+% web page or a lecturer's email address.
+%--------------------------------------------------------------
+
+\titlehead{%
+	\vspace*{-1cm}
+	\begin{minipage}[b]{4.0cm}
+	\includegraphics*[height=1.3cm]{Uniandes_logo.jpeg}%
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{12cm}
+	\begin{flushright}
+		\usekomafont{descriptionlabel}
+		\large Machine Learning for Quantum Matter and Technology \\
+		\normalsize \normalfont
+		J. Carrasquilla, E. Inack, G. Torlai, R. Melko, L. Hayward Sierens
+	\end{flushright}
+	\end{minipage}
+	\\[-3mm]
+	\hrule
+	\vspace{-3mm}
+}
+% -----------
+
+%--------------------------------------------------------------
+% Other useful physic-related packages
+%--------------------------------------------------------------
+\usepackage{braket}  
+% Use \Bra{}, \Ket{} or \Braket{x | \psi} for Dirac notation
+
+%--------------------------------------------------------------
+% Nice numbering for question parts.
+%--------------------------------------------------------------
+\newcommand{\ba}{\begin{eqnarray}}
+\newcommand{\ea}{\end{eqnarray}}
+
+\newcommand{\ssk}{\smallskip}
+\newcommand{\msk}{\medskip}
+
+\newcommand{\nin}{\noindent}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+\newcommand{\beqs}{\begin{equation*}}
+\newcommand{\eeqs}{\end{equation*}}
+
+\renewcommand{\vec}[1]{{\mathbf{#1}}}
+\renewcommand{\labelenumi}{\alph{enumi})}
+\renewcommand{\labelenumiii}{\roman{enumiii})}
+
+%%%%%%%%%%%%%
+
+\def\be{\begin{eqnarray}}
+\def\ee{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+\newcommand\para{\paragraph{}}
+\newcommand{\ft}[2]{{\textstyle\frac{#1}{#2}}}
+\newcommand{\eqn}[1]{(\ref{#1})}
+\newcommand{\pl}[1]{\frac{\partial {\cal L}}{\partial{#1}}}
+\newcommand{\ppp}[2]{\frac{\partial {#1}}{\partial {#2}}}
+\newcommand{\ph}[1]{\frac{\partial {\cal H}}{\partial{#1}}}
+\newcommand{\leftp}[3]{\left.\ppp{#1}{#2}\right|_{#3}}
+%\newcommand{\Vec}[2]{\left(\begin{array}{c} {#1} \\ {#2}\end{array}\right)}
+\newcommand\vx{\vec{x}}
+\newcommand\vy{\vec{y}}
+\newcommand\vp{\vec{p}}
+\newcommand\vq{\vec{q}}
+\newcommand\vk{\vec{k}}
+\newcommand\avp{a^{\ }_{\vp}}
+\newcommand\advp{a^\dagger_{\vp}}
+\newcommand\ad{a^\dagger}
+
+\newcommand\balpha{\mbox{\boldmath $\alpha$}}
+\newcommand\bbeta{\mbox{\boldmath $\beta$}}
+\newcommand\bgamma{\mbox{\boldmath $\gamma$}}
+\newcommand\bomega{\mbox{\boldmath $\omega$}}
+\newcommand\blambda{\mbox{\boldmath $\lambda$}}
+\newcommand\bmu{\mbox{\boldmath $\mu$}}
+\newcommand\bphi{\mbox{\boldmath $\phi$}}
+\newcommand\bzeta{\mbox{\boldmath $\zeta$}}
+\newcommand\bsigma{\mbox{\boldmath $\sigma$}}
+\newcommand\bepsilon{\mbox{\boldmath $\epsilon$}}
+\newcommand\btau{\mbox{\boldmath $\tau$}}
+\newcommand\beeta{\mbox{\boldmath $\eta$}}
+\newcommand\btheta{\mbox{\boldmath $\theta$}}
+
+\def\norm#1{:\!\!#1\!\!:}
+
+\def\part{\partial}
+
+\def\dbox{\hbox{{$\sqcup$}\llap{$\sqcap$}}}
+
+\def\sla#1{\hbox{{$#1$}\llap{$/$}}}
+\def\Dslash{\,\,{\raise.15ex\hbox{/}\mkern-13mu D}}
+\def\Dbarslash{\,\,{\raise.15ex\hbox{/}\mkern-12mu {\bar D}}}
+\def\delslash{\,\,{\raise.15ex\hbox{/}\mkern-10mu \partial}}
+\def\delbarslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu {\bar\partial}}}
+\def\pslash{\,\,{\raise.15ex\hbox{/}\mkern-11mu p}}
+\def\qslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu q}}
+\def\kslash{\,\,{\raise.15ex\hbox{/}\mkern-11mu k}}
+\def\eslash{\,\,{\raise.15ex\hbox{/}\mkern-9mu \epsilon}}
+\def\calDslash{\,\,{\rais.15ex\hbox{/}\mkern-12mu {\cal D}}}
+\newcommand{\slsh}[1]{\,\,{\raise.15ex\hbox{/}\mkern-12mu {#1}}}
+
+
+\newcommand\Bprime{B${}^\prime$}
+%\newcommand{\sign}{{\rm sign}}
+
+\newcommand\bx{{\bf x}}
+\newcommand\br{{\bf r}}
+\newcommand\bF{{\bf F}}
+\newcommand\bp{{\bf p}}
+\newcommand\bL{{\bf L}}
+\newcommand\bR{{\bf R}}
+\newcommand\bP{{\bf P}}
+\newcommand\bE{{\bf E}}
+\newcommand\bB{{\bf B}}
+\newcommand\bA{{\bf A}}
+\newcommand\bee{{\bf e}}
+\newcommand\bte{\tilde{\bf e}}
+\def\ket#1{\left| #1 \right\rangle}
+\def\bra#1{\left\langle #1 \right|}
+\def\vev#1{\left\langle #1 \right\rangle}
+
+\newcommand\lmn[2]{\Lambda^{#1}_{\ #2}}
+\newcommand\mup[2]{\eta^{#1 #2}}
+\newcommand\mdown[2]{\eta_{#1 #2}}
+\newcommand\deld[2]{\delta^{#1}_{#2}}
+\newcommand\df{\Delta_F}
+\newcommand\cL{{\cal L}}
+%\def\theequation{\thesection.\arabic{equation}
+
+\newcounter{solneqn}
+%\newcommand{\mytag}{\refstepcounter{equation}\tag{\roman{equationn}}}
+\newcommand{\mytag}{\refstepcounter{solneqn}\tag{S.\arabic{solneqn}}}
+
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+%%%%%%%%%
+
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\sign}{sign}
+
+%\renewcommand{\ttdefault}{pcr}
+
+\usepackage{enumitem}
+
+\begin{document}
+
+%\scalefont{1.35}
+
+\vspace{-3cm}
+
+\opt{nosoln}{\title{Tutorial 5: \\Variational Monte Carlo on the  \\Harmonic oscillator \vspace*{-6mm}}}
+\opt{soln}{\title{Tutorial 3 \textcolor{JungleGreen}{Solutions}: \\Identifying phase transitions using \\principal component analysis \vspace*{-6mm}}}
+
+\date{May 31, 2019}
+
+\maketitle
+
+The objective of this tutorial is to find the ground state properties of the Harmonic oscillator using the Variational Monte Carlo (VMC) method.  
+
+VMC is usually implemented to estimate the ground state energy $E_0$ of an Hamiltonian $\hat{H}$ by using a were crafted state $|\Psi_{\balpha} \rangle$ which has to be representative enough of the ground state $|\phi_0\rangle$. $\balpha$ stands for a set of variational parameters that needs to be optimized. 
+
+The ground state energy is then approximated through the variational energy which is given by:
+\beq
+E_{var} =\frac{\langle {\Psi}_{\boldsymbol{\alpha}} | \hat{H} |{\Psi}_{\boldsymbol{\alpha}}\rangle}{\langle {\Psi}_{\boldsymbol{\alpha}}|{\Psi}_{\boldsymbol{\alpha}}\rangle},
+\label{eqn:varE2}
+\eeq
+
+The \textit{variational principle} guarantees that $E_{var}$ acts as an upper bound to the ground state energy of the Hamiltonian $\hat{H}$. The essence of VMC would therefore be to find the optimal set of variational parameters ${\boldsymbol{\alpha}}_{opt}$ for which the variational energy is minimum. This is usually achieved through some minimization procedure.
+
+Recall that the Hamiltonian of the harmonic oscillator in one dimension is given by:
+\beq
+\hat{H}= \frac{\hat{p}^2}{2} + \frac{x^2}{2}.
+\eeq
+where the energy is in units of $\hbar \omega$. The ground state wave-function can be computed exactly and is given by: 
+\beq
+\phi_0(x) ={(\frac{1}{\pi})}^{1/4} e^{-x^2/2}.
+\eeq
+
+In this tutorial, we will consider the variational wave-function $\Psi_\alpha (x) = e^{-\alpha x^2/2}$ where $\alpha$ is the variational parameter to determine.
+
+\begin{enumerate}[label=\alph*)]
+\item Run the code \texttt{tutorial5{\textunderscore}vmc{\textunderscore}ho.py} with \texttt{num{\textunderscore}walkers = 400}, \texttt{num{\textunderscore}MC{\textunderscore}steps = 30000}, \\ \texttt{num{\textunderscore}equil{\textunderscore}steps = 3000}, and convince yourself that the variational energy is indeed an upper bound to the exact ground state energy.
+
+\item Plot the standard deviation of $E_{var}$ with respect to different values of $\alpha$. What can you interpret from the result? How does the standard deviation varies with respect to the number of walkers?
+
+\item Use the code \texttt{tutorial5{\textunderscore}training{\textunderscore}vmc{\textunderscore}ho.py} to optimize the parameter $\alpha$ using stochastic gradient descend. Check how the hyper-parameters such as the learning rate and the number of samples affect the training.
+
+\item Compute the exact derivative of variational energy with respect to $\alpha$ and compare it with its stochastic estimate given by:
+\beq
+\partial_{{\alpha}} E_{var} = 2 \big[ \langle E_{loc}({\mathit{x}})F_\alpha({\mathit{x}}) \rangle -\langle E_{loc}({\mathit{x}}) \rangle \langle F_\alpha({\mathit{x}}) \rangle \big].
+\eeq
+
+\item Check that the optimization still work when implemented with the exact derivative of the variational energy. Comment on whether or not it is advisable to use it during the training.
+
+\item Comment on the difference between in the SGD method implemented here and the one routinely implement in the training of neural networks.
+
+\item Change the initialization of the walkers to be distributed between $[-4.5:5.5]$. Run the stochastic gradient descent algorithm. What do you notice? Could the problem be fixed by any form of smart proposal move?
+
+
+\end{enumerate}
+
+
+
+For further information, check the modern machine learning software for energy minimization of variational wave functions~\cite{netket}.
+
+\begin{thebibliography}{}
+
+
+\bibitem{netket} 
+NetKet, {\small\url{https://www.netket.org/getstarted/home/}}.
+
+%\begin{thebibliography}{}
+
+%\bibitem{wang} 
+%L. Wang, Phys. Rev. B \textbf{94}, 195105 (2016), {\small\url{https://arxiv.org/abs/1606.00318}}.
+
+\end{thebibliography}
+
+\end{document}
