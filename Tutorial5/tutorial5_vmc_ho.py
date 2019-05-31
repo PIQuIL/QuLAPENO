@@ -46,10 +46,10 @@ def vmc(num_walkers,num_MC_steps,num_equil_steps,α,δ=1.0):
     
     return estimator
 
-α = 0.45
-num_walkers = 100
-num_MC_steps = 20000
-num_equil_steps = 5000
+α = 0.4
+num_walkers = 400
+num_MC_steps = 30000
+num_equil_steps = 3000
 
 np.random.seed(1173)
 
